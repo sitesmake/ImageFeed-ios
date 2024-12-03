@@ -186,7 +186,7 @@
                     <navigationItem key="navigationItem" id="Ja9-n6-Msr"/>
                     <connections>
                         <outlet property="tableView" destination="yqn-r5-Dmz" id="aED-OI-pQ1"/>
-                        <segue destination="Qw8-QS-1iG" kind="show" identifier="ShowSingleImage" id="3UR-wE-Q82"/>
+                        <segue destination="Qw8-QS-1iG" kind="presentation" identifier="ShowSingleImage" id="3UR-wE-Q82"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -222,23 +222,37 @@
         <!--Single Image View Controller-->
         <scene sceneID="b0U-Fe-Xmp">
             <objects>
-                <viewController id="Qw8-QS-1iG" customClass="SingleImageViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="Qw8-QS-1iG" customClass="SingleImageViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hNt-Uv-bDX">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="5" translatesAutoresizingMaskIntoConstraints="NO" id="So8-lS-Kzr">
-                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="5" translatesAutoresizingMaskIntoConstraints="NO" id="So8-lS-Kzr">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqF-Ls-ub7">
+                                <rect key="frame" x="8" y="8" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="CiZ-gZ-cFg"/>
+                                    <constraint firstAttribute="height" constant="48" id="Wse-5s-cvo"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="nav_back_button_white"/>
+                                <connections>
+                                    <action selector="didTapBackButton" destination="Qw8-QS-1iG" eventType="touchUpInside" id="X8c-1k-2St"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Qe7-i6-xlM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="So8-lS-Kzr" firstAttribute="top" secondItem="Qe7-i6-xlM" secondAttribute="top" id="2rg-3e-u2T"/>
-                            <constraint firstItem="Qe7-i6-xlM" firstAttribute="bottom" secondItem="So8-lS-Kzr" secondAttribute="bottom" id="8PB-97-ant"/>
-                            <constraint firstItem="So8-lS-Kzr" firstAttribute="leading" secondItem="Qe7-i6-xlM" secondAttribute="leading" id="CbZ-w3-Vr8"/>
-                            <constraint firstItem="Qe7-i6-xlM" firstAttribute="trailing" secondItem="So8-lS-Kzr" secondAttribute="trailing" id="DN8-Oy-eiw"/>
+                            <constraint firstItem="So8-lS-Kzr" firstAttribute="top" secondItem="hNt-Uv-bDX" secondAttribute="top" id="2rg-3e-u2T"/>
+                            <constraint firstAttribute="bottom" secondItem="So8-lS-Kzr" secondAttribute="bottom" id="8PB-97-ant"/>
+                            <constraint firstItem="So8-lS-Kzr" firstAttribute="leading" secondItem="hNt-Uv-bDX" secondAttribute="leading" id="CbZ-w3-Vr8"/>
+                            <constraint firstAttribute="trailing" secondItem="So8-lS-Kzr" secondAttribute="trailing" id="DN8-Oy-eiw"/>
+                            <constraint firstItem="aqF-Ls-ub7" firstAttribute="leading" secondItem="Qe7-i6-xlM" secondAttribute="leading" constant="8" id="tNh-oS-Wsx"/>
+                            <constraint firstItem="aqF-Ls-ub7" firstAttribute="top" secondItem="Qe7-i6-xlM" secondAttribute="top" constant="8" id="xjp-nf-giK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Xfh-1s-0OC"/>
@@ -257,6 +271,7 @@
         <image name="avatar" width="70" height="70"/>
         <image name="like_button_on" width="42" height="42"/>
         <image name="logout_button" width="44" height="44"/>
+        <image name="nav_back_button_white" width="24" height="24"/>
         <image name="tab_editorial_active" width="30" height="30"/>
         <image name="tab_profile_active" width="30" height="30"/>
         <systemColor name="systemBackgroundColor">
