@@ -15,6 +15,7 @@
 		11134ED12CF1B669005A6233 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 11134ED02CF1B669005A6233 /* Base */; };
 		112D96E12CFC2AF30022B2AF /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D96E02CFC2AF30022B2AF /* ProfileViewController.swift */; };
 		112D96E32CFC465A0022B2AF /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D96E22CFC465A0022B2AF /* SingleImageViewController.swift */; };
+		113C28E02D0AFF7200DE6F0C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113C28DF2D0AFF7200DE6F0C /* Constants.swift */; };
 		11931CE02CF6F58D002390E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11134ECA2CF1B666005A6233 /* Main.storyboard */; };
 		11931CE22CF6F989002390E4 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11931CE12CF6F989002390E4 /* ImagesListCell.swift */; };
 /* End PBXBuildFile section */
@@ -30,6 +31,7 @@
 		11134ED22CF1B669005A6233 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		112D96E02CFC2AF30022B2AF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		112D96E22CFC465A0022B2AF /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
+		113C28DF2D0AFF7200DE6F0C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		11931CE12CF6F989002390E4 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,6 +70,7 @@
 				11A8792C2CFB07C900F243E4 /* ImagesList */,
 				11134EC42CF1B666005A6233 /* AppDelegate.swift */,
 				11134EC62CF1B666005A6233 /* SceneDelegate.swift */,
+				113C28DF2D0AFF7200DE6F0C /* Constants.swift */,
 				11134ECA2CF1B666005A6233 /* Main.storyboard */,
 				11134ECD2CF1B669005A6233 /* Assets.xcassets */,
 				11134ECF2CF1B669005A6233 /* LaunchScreen.storyboard */,
@@ -177,6 +180,7 @@
 				11931CE22CF6F989002390E4 /* ImagesListCell.swift in Sources */,
 				112D96E12CFC2AF30022B2AF /* ProfileViewController.swift in Sources */,
 				11134EC52CF1B666005A6233 /* AppDelegate.swift in Sources */,
+				113C28E02D0AFF7200DE6F0C /* Constants.swift in Sources */,
 				112D96E32CFC465A0022B2AF /* SingleImageViewController.swift in Sources */,
 				11134EC72CF1B666005A6233 /* SceneDelegate.swift in Sources */,
 			);
