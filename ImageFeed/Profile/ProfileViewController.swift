@@ -8,7 +8,7 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
-    private var label, label2, label3: UILabel?
+    private var usernameLabel, profileLabel, textLabel: UILabel?
     private var imageView: UIImageView?
 
     override func viewDidLoad() {
@@ -16,47 +16,23 @@ final class ProfileViewController: UIViewController {
 
         let profileImage = UIImage(named: "avatar")
         let imageView = UIImageView(image: profileImage)
-        imageView.tintColor = .gray
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(imageView)
-        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        self.imageView = imageView
+        setupImageView(imageView)
 
-        let label = UILabel()
-        let label2 = UILabel()
-        let label3 = UILabel()
+        let usernameLabel = UILabel()
+        let profileLabel = UILabel()
+        let textLabel = UILabel()
 
-        label.text = "Екатерина Новикова"
-        label.textColor = .white
-        label.font = label.font.withSize(23)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(label)
-        self.label = label
-
-        label2.text = "@ekaterina_nov"
-        label2.textColor = UIColor(named: "profile_gray")
-        label2.font = label.font.withSize(13)
-        label2.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(label2)
-        self.label2 = label2
-
-        label3.text = "Hello, world!"
-        label3.textColor = .white
-        label3.font = label.font.withSize(13)
-        label3.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(label3)
-        self.label3 = label3
+        setupUsernameLabel(usernameLabel)
+        setupProfileLabel(profileLabel)
+        setupTextLabel(textLabel)
 
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-            label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
-            label2.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-            label2.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 8),
-            label3.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-            label3.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: 8)
+            usernameLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            usernameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            profileLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            profileLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 8),
+            textLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            textLabel.topAnchor.constraint(equalTo: profileLabel.bottomAnchor, constant: 8)
         ])
 
 
@@ -72,16 +48,54 @@ final class ProfileViewController: UIViewController {
         button.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
     }
 
+    private func setupImageView(_ imageView: UIImageView) {
+        imageView.tintColor = .gray
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageView)
+        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        self.imageView = imageView
+    }
+
+    private func setupUsernameLabel(_ label: UILabel) {
+        label.text = "Екатерина Новикова"
+        label.textColor = .white
+        label.font = label.font.withSize(23)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+        self.usernameLabel = label
+    }
+
+    private func setupProfileLabel(_ label: UILabel) {
+        label.text = "@ekaterina_nov"
+        label.textColor = UIColor(named: "profile_gray")
+        label.font = label.font.withSize(13)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+        self.profileLabel = label
+    }
+
+    private func setupTextLabel(_ label: UILabel) {
+        label.text = "Hello, world!"
+        label.textColor = .white
+        label.font = label.font.withSize(13)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+        self.textLabel = label
+    }
+
     @objc
     private func didTapButton() {
-        label?.removeFromSuperview()
-        label = nil
+        usernameLabel?.removeFromSuperview()
+        usernameLabel = nil
 
-        label2?.removeFromSuperview()
-        label2 = nil
+        profileLabel?.removeFromSuperview()
+        profileLabel = nil
 
-        label3?.removeFromSuperview()
-        label3 = nil
+        textLabel?.removeFromSuperview()
+        textLabel = nil
 
         let logoutImage = UIImage(systemName: "person.crop.circle.fill")
         imageView?.image = logoutImage
