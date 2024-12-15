@@ -236,7 +236,7 @@
         <!--Auth View Controller-->
         <scene sceneID="0Yx-FK-ep8">
             <objects>
-                <viewController id="Stw-fp-gRy" customClass="AuthViewController" customModule="Image_Feed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Stw-fp-gRy" customClass="AuthViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jS8-YU-bFT">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -310,20 +310,27 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="nav_back_button_white"/>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qeS-8V-vz5">
+                                <rect key="frame" x="0.0" y="103" width="393" height="4"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="PGd-Wo-zXO"/>
                         <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="PGd-Wo-zXO" firstAttribute="trailing" secondItem="qeS-8V-vz5" secondAttribute="trailing" id="4vD-Oq-H82"/>
                             <constraint firstItem="B0g-T8-0aO" firstAttribute="leading" secondItem="DxN-9q-q9F" secondAttribute="leading" id="9nA-Ex-TVB"/>
                             <constraint firstItem="ZjC-Pb-qHC" firstAttribute="leading" secondItem="PGd-Wo-zXO" secondAttribute="leading" id="Udx-jV-HOe"/>
                             <constraint firstAttribute="bottom" secondItem="B0g-T8-0aO" secondAttribute="bottom" id="Wb1-5f-vdF"/>
                             <constraint firstAttribute="trailing" secondItem="B0g-T8-0aO" secondAttribute="trailing" id="d99-CF-l2y"/>
+                            <constraint firstItem="qeS-8V-vz5" firstAttribute="leading" secondItem="PGd-Wo-zXO" secondAttribute="leading" id="fML-hg-4v8"/>
                             <constraint firstItem="B0g-T8-0aO" firstAttribute="top" secondItem="DxN-9q-q9F" secondAttribute="top" id="gxo-LJ-6hb"/>
+                            <constraint firstItem="qeS-8V-vz5" firstAttribute="top" secondItem="PGd-Wo-zXO" secondAttribute="top" id="nyS-T2-doJ"/>
                             <constraint firstItem="ZjC-Pb-qHC" firstAttribute="top" secondItem="PGd-Wo-zXO" secondAttribute="top" id="obZ-he-6B5"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="D0S-y3-tKH"/>
                     <connections>
+                        <outlet property="progressView" destination="qeS-8V-vz5" id="pQg-hE-Mc2"/>
                         <outlet property="webView" destination="B0g-T8-0aO" id="boE-57-ivZ"/>
                     </connections>
                 </viewController>
