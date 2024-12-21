@@ -11,15 +11,15 @@ protocol OAuth2StorageProtocol {
     var token: String? { get set }
 }
 
-private enum Keys: String {
-    case token
-}
-
 final class OAuth2Storage: OAuth2StorageProtocol {
     static let shared = OAuth2Storage()
     private init() {}
+    
+    private enum Keys: String {
+        case token
+    }
 
-    let userDefaults = UserDefaults.standard
+    private let userDefaults = UserDefaults.standard
 
     var token: String? {
         get {
