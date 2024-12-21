@@ -28,7 +28,7 @@ final class ProfileViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             usernameLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-            usernameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            usernameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             profileLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
             profileLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 8),
             textLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
@@ -37,11 +37,11 @@ final class ProfileViewController: UIViewController {
 
 
         let button = UIButton.systemButton(
-            with: UIImage(systemName: "ipad.and.arrow.forward")!,
+            with: UIImage(named: "logout_button")!,
             target: self,
             action: #selector(Self.didTapButton)
         )
-        button.tintColor = .red
+        button.tintColor = UIColor(named: "logout_button_color")
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
         button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
@@ -62,7 +62,7 @@ final class ProfileViewController: UIViewController {
     private func setupUsernameLabel(_ label: UILabel) {
         label.text = "Екатерина Новикова"
         label.textColor = .white
-        label.font = label.font.withSize(23)
+        label.font = .systemFont(ofSize: 23.0, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
         self.usernameLabel = label
