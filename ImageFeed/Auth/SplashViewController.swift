@@ -58,7 +58,7 @@ extension SplashViewController {
 extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
         oauth2Service.fetchOAuthToken(code) { [weak self] result in
-            self?.dismiss(animated: true) { [weak self] in
+            self?.dismiss(animated: true) {
                 switch result {
                 case .success:
                     self?.switchToTabBarController()

@@ -66,6 +66,7 @@ final class WebViewViewController: UIViewController {
 
     private func loadAuthView() {
         guard var urlComponents = URLComponents(string: WebViewConstants.unsplashAuthorizeURLString) else {
+            print("Set urlComponents error")
             return
         }
 
@@ -77,6 +78,7 @@ final class WebViewViewController: UIViewController {
         ]
 
         guard let url = urlComponents.url else {
+            print("Error set url")
             return
         }
 
@@ -111,6 +113,7 @@ extension WebViewViewController: WKNavigationDelegate {
         {
             return codeItem.value
         } else {
+            print("No code in response")
             return nil
         }
     }
