@@ -15,12 +15,12 @@ final class AuthViewController: UIViewController {
     private let showWebViewSegueIdentifier = "ShowWebView"
     weak var delegate: AuthViewControllerDelegate?
 
-    @IBOutlet weak var LoginButton: UIButton!
+    @IBOutlet weak var loginButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        LoginButton.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .bold)
+        loginButton.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .bold)
 
         configureBackButton()
     }

@@ -51,6 +51,7 @@ final class OAuth2Service {
                 self.storage.token = authToken
                 completion(.success(authToken))
             case .failure(let error):
+                print("Request error fetching token: \(error)")
                 completion(.failure(error))
             }
         }

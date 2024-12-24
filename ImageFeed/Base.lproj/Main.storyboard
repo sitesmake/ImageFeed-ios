@@ -313,7 +313,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Mwa-qf-4Eg"/>
                     <connections>
-                        <outlet property="LoginButton" destination="zzO-q8-k1A" id="BSZ-yj-wtl"/>
+                        <outlet property="loginButton" destination="zzO-q8-k1A" id="wRk-4U-bnn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fj1-Q0-vU0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
