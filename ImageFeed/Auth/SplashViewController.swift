@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import ProgressHUD
 
 final class SplashViewController: UIViewController {
     private let showAuthenticationScreenSegue = "AuthenticationFlow"
@@ -58,10 +57,10 @@ extension SplashViewController {
 // MARK: - AuthViewControllerDelegate
 extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
-        ProgressHUD.animate()
+        UIBlockingProgressHUD.show()
         oauth2Service.fetchOAuthToken(code) { [weak self] result in
             self?.dismiss(animated: true) {
-                ProgressHUD.dismiss()
+                UIBlockingProgressHUD.dismiss()
                 switch result {
                 case .success:
                     self?.switchToTabBarController()
