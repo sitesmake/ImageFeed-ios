@@ -35,7 +35,6 @@ final class ProfileViewController: UIViewController {
             textLabel.topAnchor.constraint(equalTo: profileLabel.bottomAnchor, constant: 8)
         ])
 
-
         let button = UIButton.systemButton(
             with: UIImage(named: "logout_button")!,
             target: self,
@@ -46,6 +45,22 @@ final class ProfileViewController: UIViewController {
         view.addSubview(button)
         button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
         button.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
+
+        let token = OAuth2Storage.shared.token!
+        print(token)
+
+        ProfileService.shared.fetchProfile(token) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let something):
+                guard let profile = ProfileService.shared.profile else { return }
+                usernameLabel.text = profile.username
+                profileLabel.text = profile.username
+                textLabel.text = profile.bio
+            case .failure:
+                print("Hello fail")
+            }
+        }
     }
 
     private func setupImageView(_ imageView: UIImageView) {

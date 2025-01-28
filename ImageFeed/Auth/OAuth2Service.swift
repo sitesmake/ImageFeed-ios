@@ -31,7 +31,7 @@ final class OAuth2Service {
         lastCode = code
 
         guard let request = makeOAuthTokenRequest(code: code) else {
-            print("Error make OAuthTokenRequest")
+            print("Error configure request")
             return
         }
 
