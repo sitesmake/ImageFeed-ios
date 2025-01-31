@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     private var usernameLabel, profileLabel, textLabel: UILabel?
     private var imageView: UIImageView?
+    private var profileImageServiceObserver: NSObjectProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +52,34 @@ final class ProfileViewController: UIViewController {
         print(token)
 
         updateProfileDetails()
+
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.didChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+
+        updateAvatar()
+    }
+
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL),
+            let imageView = self.imageView
+        else { return }
+
+        let cache = ImageCache.default
+        cache.clearDiskCache()
+        let processor = RoundCornerImageProcessor(cornerRadius: 42)
+
+        imageView.kf.setImage(with: url,
+                                 placeholder: UIImage(named: "placeholder"),
+                                 options: [.processor(processor), .transition(.fade(1))])
     }
 
     private func updateProfileDetails() {

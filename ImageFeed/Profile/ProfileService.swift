@@ -22,6 +22,7 @@ final class ProfileService {
     private(set) var profile: Profile?
 
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
+        print("started ProfileService.fetchProfile")
         assert(Thread.isMainThread)
 
         guard lastToken != token else {

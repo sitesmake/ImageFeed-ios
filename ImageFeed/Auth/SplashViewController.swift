@@ -17,9 +17,8 @@ final class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if oauth2TokenStorage.token != nil {
-            fetchProfile(oauth2TokenStorage.token!)
-            switchToTabBarController()
+        if let token = oauth2TokenStorage.token {
+            fetchProfile(token)
         } else {
             performSegue(withIdentifier: showAuthenticationScreenSegue, sender: nil)
         }
@@ -58,8 +57,15 @@ extension SplashViewController: AuthViewControllerDelegate {
             guard let self = self else { return }
 
             switch result {
-            case .success:
+            case .success(let profile):
+                guard let username = profile.username else {
+                    print ("!!! There is no username")
+                    return
+                }
+                print("ProfileImageService.shared.fetchProfileImageURL(username: \(username))")
+                ProfileImageService.shared.fetchProfileImageURL(username: username) { _ in }
                 self.switchToTabBarController()
+                UIBlockingProgressHUD.dismiss()
 
             case .failure:
                 // TODO [Sprint 11] Покажите ошибку получения профиля
