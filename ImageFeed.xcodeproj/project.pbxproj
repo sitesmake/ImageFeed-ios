@@ -11,6 +11,7 @@
 		110216B12D4CD463001355BD /* URLRequest+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110216B02D4CD463001355BD /* URLRequest+extensions.swift */; };
 		110216B42D4D23E1001355BD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 110216B32D4D23E1001355BD /* Kingfisher */; };
 		110216B72D4D2F1A001355BD /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 110216B62D4D2F1A001355BD /* SwiftKeychainWrapper */; };
+		110216BA2D4D31E0001355BD /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110216B92D4D31E0001355BD /* TabBarController.swift */; };
 		110F08562D135DE5001FA140 /* OAuth2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110F08552D135DE5001FA140 /* OAuth2Service.swift */; };
 		11134EC52CF1B666005A6233 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11134EC42CF1B666005A6233 /* AppDelegate.swift */; };
 		11134EC72CF1B666005A6233 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11134EC62CF1B666005A6233 /* SceneDelegate.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		110216AE2D4CCBD1001355BD /* ProfileImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
 		110216B02D4CD463001355BD /* URLRequest+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+extensions.swift"; sourceTree = "<group>"; };
+		110216B92D4D31E0001355BD /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		110F08552D135DE5001FA140 /* OAuth2Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Service.swift; sourceTree = "<group>"; };
 		11134EC12CF1B666005A6233 /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11134EC42CF1B666005A6233 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		110216B82D4D31CA001355BD /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				110216B92D4D31E0001355BD /* TabBarController.swift */,
+			);
+			path = TabBarController;
+			sourceTree = "<group>";
+		};
 		11134EB82CF1B666005A6233 = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +107,7 @@
 		11134EC32CF1B666005A6233 /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				110216B82D4D31CA001355BD /* TabBarController */,
 				111EE8DE2D15F092009DFC38 /* Helpers */,
 				1170A2932D0E054700078765 /* Auth */,
 				115564722CFF97350013D521 /* SingleImageView */,
@@ -265,6 +276,7 @@
 				111EE8E62D15F2C3009DFC38 /* OAuthResponseBody.swift in Sources */,
 				111EE8E22D15F0B4009DFC38 /* URLSession+data.swift in Sources */,
 				1170A2972D0E059200078765 /* WebViewViewController.swift in Sources */,
+				110216BA2D4D31E0001355BD /* TabBarController.swift in Sources */,
 				110F08562D135DE5001FA140 /* OAuth2Service.swift in Sources */,
 				11134EC72CF1B666005A6233 /* SceneDelegate.swift in Sources */,
 			);

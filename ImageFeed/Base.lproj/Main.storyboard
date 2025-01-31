@@ -12,7 +12,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="llc-Jb-6PG">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarViewController" id="d8s-Q8-uID" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewController" id="d8s-Q8-uID" customClass="TabBarController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QNN-Nr-miV">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -23,35 +23,15 @@
                             <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </tabBarAppearance>
                     </tabBar>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="RTs-AQ-Zxq"/>
-                        <segue destination="wcf-52-vme" kind="relationship" relationship="viewControllers" id="ZW7-1n-tXW"/>
-                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Io9-uG-3J8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1715" y="228"/>
         </scene>
-        <!--Profile View Controller-->
-        <scene sceneID="djm-WW-XQl">
-            <objects>
-                <viewController id="wcf-52-vme" customClass="ProfileViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ri9-JT-yde">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="CP3-Zp-ZFB"/>
-                        <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="" image="tab_profile_active" id="IQ1-RU-LhA"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jri-73-vlp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="973" y="1097"/>
-        </scene>
         <!--Images List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ImagesListViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImagesListViewController" id="BYZ-38-t0r" customClass="ImagesListViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -167,7 +147,7 @@
         <!--Navigation Controller-->
         <scene sceneID="ZYH-Zl-f4c">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YPU-tc-Ntq" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationViewController" automaticallyAdjustsScrollViewInsets="NO" id="YPU-tc-Ntq" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="b4P-gN-7F8">
                         <imageReference key="image" image="tab_editorial_active" symbolScale="default"/>
                     </tabBarItem>
@@ -383,6 +363,5 @@
         <image name="share_button" width="50" height="50"/>
         <image name="splash_screen_logo" width="72.666664123535156" height="75.333335876464844"/>
         <image name="tab_editorial_active" width="30" height="30"/>
-        <image name="tab_profile_active" width="30" height="30"/>
     </resources>
 </document>
