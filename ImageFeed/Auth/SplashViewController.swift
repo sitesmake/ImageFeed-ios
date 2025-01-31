@@ -110,6 +110,7 @@ extension SplashViewController: AuthViewControllerDelegate {
                 UIBlockingProgressHUD.dismiss()
 
             case .failure:
+                print("Error fetch profile")
                 showAlert()
                 break
             }

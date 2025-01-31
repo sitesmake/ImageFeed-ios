@@ -52,6 +52,7 @@ final class ProfileImageService {
                 )
                 self.avatarURL = user.profileImage.large
             case .failure(let error):
+                print("Request error fetching profile image: \(error)")
                 completion(.failure(error))
             }
             self.task = nil
