@@ -12,11 +12,13 @@ final class SplashViewController: UIViewController {
 
     private let oauth2Service = OAuth2Service.shared
     private let oauth2TokenStorage = OAuth2Storage.shared
+    private let profileService = ProfileService.shared
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         if oauth2TokenStorage.token != nil {
+            fetchProfile(oauth2TokenStorage.token!)
             switchToTabBarController()
         } else {
             performSegue(withIdentifier: showAuthenticationScreenSegue, sender: nil)
@@ -36,6 +38,55 @@ final class SplashViewController: UIViewController {
     }
 }
 
+// MARK: - splash screen
+extension SplashViewController: AuthViewControllerDelegate {
+    func didAuthenticate(_ vc: AuthViewController) {
+        vc.dismiss(animated: true)
+
+        guard let token = oauth2TokenStorage.token else {
+            return
+        }
+
+        fetchProfile(token)
+    }
+
+    private func fetchProfile(_ token: String) {
+        UIBlockingProgressHUD.show()
+        profileService.fetchProfile(token) { [weak self] result in
+            UIBlockingProgressHUD.dismiss()
+
+            guard let self = self else { return }
+
+            switch result {
+            case .success:
+                self.switchToTabBarController()
+
+            case .failure:
+                // TODO [Sprint 11] Покажите ошибку получения профиля
+                print("TODO [Sprint 11] Покажите ошибку получения профиля")
+                break
+            }
+        }
+    }
+
+    func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
+        UIBlockingProgressHUD.show()
+        oauth2Service.fetchOAuthToken(code) { [weak self] result in
+            self?.dismiss(animated: true) {
+                UIBlockingProgressHUD.dismiss()
+                switch result {
+                case .success:
+                    self?.switchToTabBarController()
+                case .failure:
+                    print("Error fetch OAuth token")
+                    break
+                }
+            }
+        }
+    }
+}
+
+
 // MARK: - Check authorization
 extension SplashViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -50,25 +101,6 @@ extension SplashViewController {
             viewController.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)
-        }
-    }
-}
-
-// MARK: - AuthViewControllerDelegate
-extension SplashViewController: AuthViewControllerDelegate {
-    func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
-        UIBlockingProgressHUD.show()
-        oauth2Service.fetchOAuthToken(code) { [weak self] result in
-            self?.dismiss(animated: true) {
-                UIBlockingProgressHUD.dismiss()
-                switch result {
-                case .success:
-                    self?.switchToTabBarController()
-                case .failure:
-                    print("Error fetch OAuth token")
-                    break
-                }
-            }
         }
     }
 }

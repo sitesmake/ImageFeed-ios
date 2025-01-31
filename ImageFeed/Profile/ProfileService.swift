@@ -19,9 +19,9 @@ final class ProfileService {
     private var lastToken: String?
 
     private let urlSession = URLSession.shared
-    private(set) var profile: ProfileResult?
+    private(set) var profile: Profile?
 
-    func fetchProfile(_ token: String, completion: @escaping (Result<ProfileResult, Error>) -> Void) {
+    func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
         assert(Thread.isMainThread)
 
         guard lastToken != token else {
@@ -37,15 +37,15 @@ final class ProfileService {
             return
         }
 
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<Profile, Error>) in
             guard let self else { return }
             
             switch result {
-            case .success(let profileResult):
-                self.profile = profileResult
-                completion(.success(profileResult))
+            case .success(let profile):
+                self.profile = profile
+                completion(.success(profile))
             case .failure(let error):
-                print("Request error fetching profileResult: \(error)")
+                print("Request error fetching profile: \(error)")
                 completion(.failure(error))
             }
 

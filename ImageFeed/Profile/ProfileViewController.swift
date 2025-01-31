@@ -49,18 +49,14 @@ final class ProfileViewController: UIViewController {
         let token = OAuth2Storage.shared.token!
         print(token)
 
-        ProfileService.shared.fetchProfile(token) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let something):
-                guard let profile = ProfileService.shared.profile else { return }
-                usernameLabel.text = profile.username
-                profileLabel.text = profile.username
-                textLabel.text = profile.bio
-            case .failure:
-                print("Hello fail")
-            }
-        }
+        updateProfileDetails()
+    }
+
+    private func updateProfileDetails() {
+        guard let profile = ProfileService.shared.profile else { return }
+        usernameLabel?.text = profile.username
+        profileLabel?.text = profile.username
+        textLabel?.text = profile.bio
     }
 
     private func setupImageView(_ imageView: UIImageView) {
