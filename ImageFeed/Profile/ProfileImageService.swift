@@ -8,17 +8,6 @@
 import Foundation
 
 final class ProfileImageService {
-    
-    private struct UserResult: Codable {
-        let profileImage: ProfileImage
-    }
-    
-    private struct ProfileImage: Codable {
-        let small: String
-        let medium: String
-        let large: String
-    }
-
     static let shared = ProfileImageService()
     private init() {}
 

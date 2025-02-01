@@ -59,14 +59,9 @@ final class ProfileService {
     }
 
     private func makeProfileRequest(token: String) -> URLRequest? {
-        guard let baseURL = URL(string: "https://api.unsplash.com") else {
-            print("Error fetch base URL")
-            return nil
-        }
-
         guard let url = URL(
             string: "/me",
-            relativeTo: baseURL
+            relativeTo: Constants.defaultBaseURL
         ) else {
             print("Error fetch URL")
             return nil
