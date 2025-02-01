@@ -16,6 +16,8 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .ypBlack
+
         let profileImage = UIImage(named: "avatar")
         let imageView = UIImageView(image: profileImage)
         setupImageView(imageView)
@@ -84,8 +86,8 @@ final class ProfileViewController: UIViewController {
 
     private func updateProfileDetails() {
         guard let profile = ProfileService.shared.profile else { return }
-        usernameLabel?.text = profile.username
-        profileLabel?.text = profile.username
+        usernameLabel?.text = profile.name
+        profileLabel?.text = profile.loginName
         textLabel?.text = profile.bio
     }
 

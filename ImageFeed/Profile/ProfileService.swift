@@ -21,7 +21,7 @@ final class ProfileService {
     private let urlSession = URLSession.shared
     private(set) var profile: Profile?
 
-    func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
+    func fetchProfile(_ token: String, completion: @escaping (Result<ProfileResult, Error>) -> Void) {
         print("started ProfileService.fetchProfile")
         assert(Thread.isMainThread)
 
@@ -38,13 +38,13 @@ final class ProfileService {
             return
         }
 
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<Profile, Error>) in
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
             guard let self else { return }
             
             switch result {
-            case .success(let profile):
-                self.profile = profile
-                completion(.success(profile))
+            case .success(let profileResult):
+                self.profile = Profile(ProfileResult: profileResult)
+                completion(.success(profileResult))
             case .failure(let error):
                 print("Request error fetching profile: \(error)")
                 completion(.failure(error))
