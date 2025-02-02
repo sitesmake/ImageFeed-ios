@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 protocol OAuth2StorageProtocol {
     var token: String? { get set }
@@ -23,10 +24,14 @@ final class OAuth2Storage: OAuth2StorageProtocol {
 
     var token: String? {
         get {
-            return userDefaults.string(forKey: Keys.token.rawValue)
+            KeychainWrapper.standard.string(forKey: Keys.token.rawValue)
         }
         set {
-            userDefaults.set(newValue, forKey: Keys.token.rawValue)
+            guard let newValue else {
+                assertionFailure("Value for token is invalid")
+                return
+            }
+            KeychainWrapper.standard.set(newValue, forKey: Keys.token.rawValue)
         }
     }
 }
