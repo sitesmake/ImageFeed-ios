@@ -21,11 +21,6 @@ final class SingleImageViewController: UIViewController {
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
         loadAndShowImage(url: image)
-
-//        guard let image else { return }
-//        imageView.image = image
-//        imageView.frame.size = image.size
-//        rescaleAndCenterImageInScrollView(image: image)
     }
 
     func loadAndShowImage(url: URL?) {
@@ -40,9 +35,25 @@ final class SingleImageViewController: UIViewController {
                 self.imageDownload = imageResult.image
             case .failure(let error):
                 print(error.localizedDescription)
-//                self.showError(url: url)
+                self.showError(url: url)
             }
         }
+    }
+
+    private func showError(url: URL) {
+        let alert = UIAlertController(title: "Something goes wrong", message: "Try again?", preferredStyle: .alert)
+        let repeats = UIAlertAction(title: "Retry", style: .default) { [weak self] _ in
+            guard let self else { return }
+            self.loadAndShowImage(url: url)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            alert.dismiss(animated: true)
+        }
+
+        alert.addAction(cancel)
+        alert.addAction(repeats)
+
+        present(alert, animated: true)
     }
 
     @IBAction private func didTapBackButton() {
@@ -56,6 +67,18 @@ final class SingleImageViewController: UIViewController {
             applicationActivities: nil
         )
         present(share, animated: true, completion: nil)
+    }
+}
+
+extension SingleImageViewController: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        imageView
+    }
+
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        let offsetX = max((scrollView.bounds.width - scrollView.contentSize.width) * 0.5, 0)
+        let offsetY = max((scrollView.bounds.height - scrollView.contentSize.height) * 0.5, 0)
+        scrollView.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
     }
 
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
@@ -73,11 +96,5 @@ final class SingleImageViewController: UIViewController {
         let x = (newContentSize.width - visibleRectSize.width) / 2
         let y = (newContentSize.height - visibleRectSize.height) / 2
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
-    }
-}
-
-extension SingleImageViewController: UIScrollViewDelegate {
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        imageView
     }
 }
