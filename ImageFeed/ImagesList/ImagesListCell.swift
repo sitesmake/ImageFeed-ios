@@ -58,12 +58,12 @@ final class ImagesListCell: UITableViewCell {
         cellButton.setImage(likeImage, for: .normal)
     }
 
-//    static func clean() {
-//        let cache = ImageCache.default
-//        cache.clearMemoryCache()
-//        cache.clearDiskCache()
-//        cache.backgroundCleanExpiredDiskCache()
-//        cache.cleanExpiredMemoryCache()
-//        cache.clearCache()
-//    }
+    static func clean() {
+        let cache = ImageCache.default
+        cache.clearMemoryCache()
+        cache.clearDiskCache()
+        cache.backgroundCleanExpiredDiskCache()
+        cache.cleanExpiredMemoryCache()
+        cache.clearCache()
+    }
 }

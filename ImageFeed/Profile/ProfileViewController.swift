@@ -142,5 +142,28 @@ final class ProfileViewController: UIViewController {
 
         let logoutImage = UIImage(systemName: "person.crop.circle.fill")
         imageView?.image = logoutImage
+
+
+
+        let alert = UIAlertController(title: "Logout", message: "Are you sure?", preferredStyle: .alert)
+
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
+            OAuth2Storage.shared.clean()
+            WebViewViewController.clean()
+            ImagesListCell.clean()
+
+            guard let window = UIApplication.shared.windows.first else {
+                fatalError("invalid operation")
+            }
+            window.rootViewController = SplashViewController()
+            window.makeKeyAndVisible()
+        }
+
+        let noAction = UIAlertAction(title: "No", style: .default) { _ in
+            alert.dismiss(animated: true)
+        }
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        present(alert, animated: true)
     }
 }
