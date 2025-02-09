@@ -8,14 +8,8 @@
 import UIKit
 
 final class SingleImageViewController: UIViewController {
-    var image: UIImage? {
-        didSet {
-            guard isViewLoaded, let image else { return }
-            imageView.image = image
-            imageView.frame.size = image.size
-            rescaleAndCenterImageInScrollView(image: image)
-        }
-    }
+    var image: URL?
+    var imageDownload: UIImage?
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -23,13 +17,32 @@ final class SingleImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        scrollView.delegate = self
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
+        loadAndShowImage(url: image)
 
-        guard let image else { return }
-        imageView.image = image
-        imageView.frame.size = image.size
-        rescaleAndCenterImageInScrollView(image: image)
+//        guard let image else { return }
+//        imageView.image = image
+//        imageView.frame.size = image.size
+//        rescaleAndCenterImageInScrollView(image: image)
+    }
+
+    func loadAndShowImage(url: URL?) {
+        guard let url else { return }
+        UIBlockingProgressHUD.show()
+        imageView.kf.setImage(with: url) { [weak self] result in
+            UIBlockingProgressHUD.dismiss()
+            guard let self else { return }
+            switch result {
+            case .success(let imageResult):
+                self.rescaleAndCenterImageInScrollView(image: imageResult.image)
+                self.imageDownload = imageResult.image
+            case .failure(let error):
+                print(error.localizedDescription)
+//                self.showError(url: url)
+            }
+        }
     }
 
     @IBAction private func didTapBackButton() {

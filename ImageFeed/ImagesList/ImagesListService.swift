@@ -12,6 +12,7 @@ final class ImagesListService {
     private var lastLoadedPage: Int?
     private var currentTask: URLSessionTask?
     private let urlSession = URLSession.shared
+    static let shared = ImagesListService()
 
     static let didChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
 
