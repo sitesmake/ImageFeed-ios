@@ -61,4 +61,45 @@ final class ImagesListService {
         ]
         return URLRequest.makeHTTPRequest(path: "/photos", method: "GET", queryItems: queryItems)
     }
+
+    func changeLike(photoId: String, isLike: Bool, _ complition: @escaping (Result<Void, Error>) -> Void) {
+        if currentTask != nil {
+            currentTask?.cancel()
+        }
+
+        let request = URLRequest.makeHTTPRequest(path: "/photos/\(photoId)/like", method: isLike ? "POST" : "DELETE")
+        guard let request = request else {
+            print("Error making request")
+            return
+        }
+
+        let task = urlSession.objectTask(for: request) { (result: Result<PhotoLike, Error>) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
+                        let photo = self.photos[index]
+                        let newPhotoResult = PhotoResult(id: photo.id,
+                                                         width: Int(photo.size.width),
+                                                         height: Int(photo.size.height),
+                                                         createdAt: photo.createdAt?.description,
+                                                         description: photo.welcomeDescription,
+                                                         urls: UrlsResult(full: photo.largeImageURL,
+                                                                          regular: photo.regularImageURL,
+                                                                          small: photo.smallImageURL,
+                                                                          thumb: photo.thumbImageURL),
+                                                         likedByUser: !photo.isLiked)
+                        let newPhoto = Photo(newPhotoResult, date: ISO8601DateFormatter())
+                        self.photos[index] = newPhoto
+                        complition(.success(()))
+                    }
+
+                case .failure(let error):
+                    fatalError("error like: \(error)")
+                }
+            }
+        }
+        self.currentTask = task
+        task.resume()
+    }
 }

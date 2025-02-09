@@ -10,11 +10,16 @@ import Kingfisher
 
 final class ImagesListCell: UITableViewCell {
     static let reuseIdentifier = "ImagesListCell"
+    let cache = ImageCache.default
     weak var delegate: ImagesListDelegate?
 
-    @IBOutlet weak var cellImage: UIImageView!
-    @IBOutlet weak var cellLabel: UILabel!
-    @IBOutlet weak var cellButton: UIButton!
+    @IBOutlet weak var cellButton: UIButton! //lilke
+    @IBOutlet weak var cellLabel: UILabel! //date
+    @IBOutlet weak var cellImage: UIImageView! //image
+    
+    @IBAction private func likeButtonClicked(_ sender: UIButton) {
+        delegate?.imagesListCellDidTapLike(self)
+    }
 
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -29,6 +34,8 @@ final class ImagesListCell: UITableViewCell {
     }
 
     func setupCell(from photo: Photo) {
+        cache.clearMemoryCache()
+        cache.clearDiskCache()
 
         let url = URL(string: photo.smallImageURL)
         cellImage.kf.indicatorType = .activity
@@ -42,6 +49,21 @@ final class ImagesListCell: UITableViewCell {
                 self.cellImage.image = UIImage(named: "ImagePlaceholder")
             }
         }
+        setIsLiked(isLiked: photo.isLiked)
         cellLabel.text = dateFormatter.string(from: photo.createdAt ?? Date())
     }
+
+    func setIsLiked(isLiked: Bool) {
+        let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
+        cellButton.setImage(likeImage, for: .normal)
+    }
+
+//    static func clean() {
+//        let cache = ImageCache.default
+//        cache.clearMemoryCache()
+//        cache.clearDiskCache()
+//        cache.backgroundCleanExpiredDiskCache()
+//        cache.cleanExpiredMemoryCache()
+//        cache.clearCache()
+//    }
 }
