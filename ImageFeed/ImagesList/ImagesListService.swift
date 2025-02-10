@@ -62,7 +62,7 @@ final class ImagesListService {
         return URLRequest.makeHTTPRequest(path: "/photos", method: "GET", queryItems: queryItems)
     }
 
-    func changeLike(photoId: String, isLike: Bool, _ complition: @escaping (Result<Void, Error>) -> Void) {
+    func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
         if currentTask != nil {
             currentTask?.cancel()
         }
@@ -91,7 +91,7 @@ final class ImagesListService {
                                                          likedByUser: !photo.isLiked)
                         let newPhoto = Photo(newPhotoResult, date: ISO8601DateFormatter())
                         self.photos[index] = newPhoto
-                        complition(.success(()))
+                        completion(.success(()))
                     }
 
                 case .failure(let error):
