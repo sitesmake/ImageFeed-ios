@@ -95,7 +95,7 @@ final class ImagesListService {
                     }
 
                 case .failure(let error):
-                    fatalError("error like: \(error)")
+                    print("error like: \(error)")
                 }
             }
         }

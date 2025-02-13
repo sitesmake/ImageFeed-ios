@@ -131,23 +131,9 @@ final class ProfileViewController: UIViewController {
 
     @objc
     private func didTapButton() {
-        usernameLabel?.removeFromSuperview()
-        usernameLabel = nil
+        let alert = UIAlertController(title: "Пока, пока!", message: "Уверены что хотите выйти?", preferredStyle: .alert)
 
-        profileLabel?.removeFromSuperview()
-        profileLabel = nil
-
-        textLabel?.removeFromSuperview()
-        textLabel = nil
-
-        let logoutImage = UIImage(systemName: "person.crop.circle.fill")
-        imageView?.image = logoutImage
-
-
-
-        let alert = UIAlertController(title: "Logout", message: "Are you sure?", preferredStyle: .alert)
-
-        let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
+        let yesAction = UIAlertAction(title: "Да", style: .default) { _ in
             OAuth2Storage.shared.clean()
             WebViewViewController.clean()
             ImagesListCell.clean()
@@ -159,11 +145,13 @@ final class ProfileViewController: UIViewController {
             window.makeKeyAndVisible()
         }
 
-        let noAction = UIAlertAction(title: "No", style: .default) { _ in
+        let noAction = UIAlertAction(title: "Нет", style: .default) { _ in
             alert.dismiss(animated: true)
         }
+
         alert.addAction(yesAction)
         alert.addAction(noAction)
+        
         present(alert, animated: true)
     }
 }

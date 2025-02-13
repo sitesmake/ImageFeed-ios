@@ -13,9 +13,9 @@ final class ImagesListCell: UITableViewCell {
     let cache = ImageCache.default
     weak var delegate: ImagesListDelegate?
 
-    @IBOutlet weak var cellButton: UIButton! //lilke
-    @IBOutlet weak var cellLabel: UILabel! //date
-    @IBOutlet weak var cellImage: UIImageView! //image
+    @IBOutlet private weak var cellButton: UIButton! //lilke
+    @IBOutlet private weak var cellLabel: UILabel! //date
+    @IBOutlet private weak var cellImage: UIImageView! //image
     
     @IBAction private func likeButtonClicked(_ sender: UIButton) {
         delegate?.imagesListCellDidTapLike(self)
@@ -39,7 +39,8 @@ final class ImagesListCell: UITableViewCell {
 
         let url = URL(string: photo.smallImageURL)
         cellImage.kf.indicatorType = .activity
-        cellImage.kf.setImage(with: url, placeholder: UIImage(named: "ImagePlaceholder")) { result in
+        cellImage.kf.setImage(with: url, placeholder: UIImage(named: "ImagePlaceholder")) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let image):
                 self.cellImage.contentMode = .scaleAspectFill

@@ -9,10 +9,9 @@ import UIKit
 
 final class SingleImageViewController: UIViewController {
     var image: URL?
-    var imageDownload: UIImage?
 
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var scrollView: UIScrollView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +30,8 @@ final class SingleImageViewController: UIViewController {
             guard let self else { return }
             switch result {
             case .success(let imageResult):
+                self.imageView.frame.size = imageResult.image.size
                 self.rescaleAndCenterImageInScrollView(image: imageResult.image)
-                self.imageDownload = imageResult.image
             case .failure(let error):
                 print(error.localizedDescription)
                 self.showError(url: url)

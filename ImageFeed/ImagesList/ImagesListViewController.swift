@@ -82,7 +82,6 @@ extension ImagesListViewController: UITableViewDataSource {
         imageListCell.delegate = self
         let photo = photos[indexPath.row]
         imageListCell.setupCell(from: photo)
-        tableView.reloadRows(at: [indexPath], with: .automatic)
 
         return imageListCell
     }
@@ -100,11 +99,10 @@ extension ImagesListViewController: ImagesListDelegate {
             case .success:
                 self.photos = self.imagesListService.photos
                 cell.setIsLiked(isLiked: self.photos[indexPath.row].isLiked)
-                UIBlockingProgressHUD.dismiss()
             case .failure(let error):
                 print(error.localizedDescription)
-                UIBlockingProgressHUD.dismiss()
             }
+            UIBlockingProgressHUD.dismiss()
         }
     }
 }
