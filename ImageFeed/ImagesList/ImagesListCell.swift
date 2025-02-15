@@ -10,7 +10,6 @@ import Kingfisher
 
 final class ImagesListCell: UITableViewCell {
     static let reuseIdentifier = "ImagesListCell"
-    let cache = ImageCache.default
     weak var delegate: ImagesListDelegate?
 
     @IBOutlet private weak var cellButton: UIButton! //lilke
@@ -34,9 +33,6 @@ final class ImagesListCell: UITableViewCell {
     }
 
     func setupCell(from photo: Photo) {
-        cache.clearMemoryCache()
-        cache.clearDiskCache()
-
         let url = URL(string: photo.smallImageURL)
         cellImage.kf.indicatorType = .activity
         cellImage.kf.setImage(with: url, placeholder: UIImage(named: "ImagePlaceholder")) { [weak self] result in
@@ -57,14 +53,5 @@ final class ImagesListCell: UITableViewCell {
     func setIsLiked(isLiked: Bool) {
         let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
         cellButton.setImage(likeImage, for: .normal)
-    }
-
-    static func clean() {
-        let cache = ImageCache.default
-        cache.clearMemoryCache()
-        cache.clearDiskCache()
-        cache.backgroundCleanExpiredDiskCache()
-        cache.cleanExpiredMemoryCache()
-        cache.clearCache()
     }
 }

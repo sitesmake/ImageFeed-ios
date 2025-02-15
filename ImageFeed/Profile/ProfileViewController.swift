@@ -50,7 +50,10 @@ final class ProfileViewController: UIViewController {
         button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
         button.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
 
-        let token = OAuth2Storage.shared.token!
+        guard let token = OAuth2Storage.shared.token else {
+            print("There is no token")
+            return
+        }
         print(token)
 
         updateProfileDetails()
@@ -136,11 +139,9 @@ final class ProfileViewController: UIViewController {
         let yesAction = UIAlertAction(title: "Да", style: .default) { _ in
             OAuth2Storage.shared.clean()
             WebViewViewController.clean()
-            ImagesListCell.clean()
+            ImagesListViewController.clean()
 
-            guard let window = UIApplication.shared.windows.first else {
-                fatalError("invalid operation")
-            }
+            guard let window = UIApplication.shared.windows.first else { return }
             window.rootViewController = SplashViewController()
             window.makeKeyAndVisible()
         }

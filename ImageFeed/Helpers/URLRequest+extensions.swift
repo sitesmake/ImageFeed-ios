@@ -8,7 +8,11 @@
 import Foundation
 
 extension URLRequest {
-    static func makeHTTPRequest(path: String, method: String, queryItems: [URLQueryItem]? = nil) -> URLRequest? {
+    static func makeHTTPRequest(
+        path: String,
+        method: String,
+        queryItems: [URLQueryItem]? = nil
+    ) -> URLRequest? {
         guard var url = URL(
             string: path,
             relativeTo: Constants.defaultBaseURL
@@ -41,8 +45,7 @@ extension URL {
         currentQueryItems.append(contentsOf: queryItems)
         urlComponents.queryItems = currentQueryItems
 
-        if let newUrl = urlComponents.url {
-            self = newUrl
-        }
+        guard let newUrl = urlComponents.url else { return }
+        self = newUrl
     }
 }

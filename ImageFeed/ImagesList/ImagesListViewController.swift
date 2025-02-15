@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ImagesListViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
 
-    var photos: [Photo] = []
+    private var photos: [Photo] = []
     private let imagesListService = ImagesListService.shared
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private var imagesListServiceObserver: NSObjectProtocol?
@@ -27,7 +28,7 @@ final class ImagesListViewController: UIViewController {
                 forName: ImagesListService.didChangeNotification,
                 object: nil,
                 queue: .main) { [weak self] _ in
-                    guard let self = self else { return }
+                    guard let self else { return }
                     self.updateTableViewAnimated()
                 }
 
@@ -65,6 +66,15 @@ final class ImagesListViewController: UIViewController {
             super.prepare(for: segue, sender: sender)
         }
     }
+
+    static func clean() {
+        let cache = ImageCache.default
+        cache.clearMemoryCache()
+        cache.clearDiskCache()
+        cache.backgroundCleanExpiredDiskCache()
+        cache.cleanExpiredMemoryCache()
+        cache.clearCache()
+    }
 }
 
 extension ImagesListViewController: UITableViewDataSource {
@@ -94,6 +104,7 @@ extension ImagesListViewController: ImagesListDelegate {
         let photo = photos[indexPath.row]
         UIBlockingProgressHUD.show()
         imagesListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { [weak self] result in
+            UIBlockingProgressHUD.dismiss()
             guard let self else { return }
             switch result {
             case .success:
@@ -102,7 +113,6 @@ extension ImagesListViewController: ImagesListDelegate {
             case .failure(let error):
                 print(error.localizedDescription)
             }
-            UIBlockingProgressHUD.dismiss()
         }
     }
 }
