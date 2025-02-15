@@ -33,14 +33,18 @@ final class ImagesListService {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let photoResults):
-                    if self.lastLoadedPage == nil {
-                        self.lastLoadedPage = 1
-                    } else {
-                        self.lastLoadedPage! += 1
-                    }
+                    let last_page_number = (self.lastLoadedPage ?? 0) + 1
+                    self.lastLoadedPage = last_page_number
 
                     let newPhotos = photoResults.map { Photo($0, date: self.dateFormatter) }
-                    self.photos.append(contentsOf: newPhotos)
+
+                    //as unsplash api duplicates last photo & first photo on next page - skips them to not duplicate on screen
+                    if (last_page_number > 1) {
+                        let resultSize = newPhotos.count
+                        self.photos.append(contentsOf: newPhotos[1..<resultSize])
+                    } else {
+                        self.photos.append(contentsOf: newPhotos)
+                    }
 
                     NotificationCenter.default.post(name: ImagesListService.didChangeNotification,
                                                     object: nil)
