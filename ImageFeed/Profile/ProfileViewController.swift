@@ -50,7 +50,10 @@ final class ProfileViewController: UIViewController {
         button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
         button.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
 
-        let token = OAuth2Storage.shared.token!
+        guard let token = OAuth2Storage.shared.token else {
+            print("There is no token")
+            return
+        }
         print(token)
 
         updateProfileDetails()
@@ -131,16 +134,25 @@ final class ProfileViewController: UIViewController {
 
     @objc
     private func didTapButton() {
-        usernameLabel?.removeFromSuperview()
-        usernameLabel = nil
+        let alert = UIAlertController(title: "Пока, пока!", message: "Уверены что хотите выйти?", preferredStyle: .alert)
 
-        profileLabel?.removeFromSuperview()
-        profileLabel = nil
+        let yesAction = UIAlertAction(title: "Да", style: .default) { _ in
+            OAuth2Storage.shared.clean()
+            WebViewViewController.clean()
+            ImagesListViewController.clean()
 
-        textLabel?.removeFromSuperview()
-        textLabel = nil
+            guard let window = UIApplication.shared.windows.first else { return }
+            window.rootViewController = SplashViewController()
+            window.makeKeyAndVisible()
+        }
 
-        let logoutImage = UIImage(systemName: "person.crop.circle.fill")
-        imageView?.image = logoutImage
+        let noAction = UIAlertAction(title: "Нет", style: .default) { _ in
+            alert.dismiss(animated: true)
+        }
+
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        
+        present(alert, animated: true)
     }
 }

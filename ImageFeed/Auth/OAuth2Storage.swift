@@ -34,4 +34,8 @@ final class OAuth2Storage: OAuth2StorageProtocol {
             KeychainWrapper.standard.set(newValue, forKey: Keys.token.rawValue)
         }
     }
+
+    func clean() {
+        KeychainWrapper.standard.removeAllKeys()
+    }
 }
