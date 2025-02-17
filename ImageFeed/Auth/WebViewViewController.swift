@@ -26,10 +26,6 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
 
     var presenter: WebViewPresenterProtocol?
 
-//    private enum WebViewConstants {
-//        static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
-//    }
-
     weak var delegate: WebViewViewControllerDelegate?
 
     override func viewDidLoad() {
@@ -37,8 +33,6 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
 
         webView.navigationDelegate = self
         presenter?.viewDidLoad()
-
-//        loadAuthView()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -63,16 +57,10 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
     ) {
         if keyPath == #keyPath(WKWebView.estimatedProgress) {
             presenter?.didUpdateProgressValue(webView.estimatedProgress)
-//            updateProgress()
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
-
-//    private func updateProgress() {
-//        progressView.progress = Float(webView.estimatedProgress)
-//        progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
-//    }
 
     func setProgressValue(_ newValue: Float) {
         progressView.progress = newValue
@@ -86,28 +74,6 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
         super.viewWillDisappear(animated)
         webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), context: nil)
     }
-
-//    private func loadAuthView() {
-//        guard var urlComponents = URLComponents(string: WebViewConstants.unsplashAuthorizeURLString) else {
-//            print("Set urlComponents error")
-//            return
-//        }
-//
-//        urlComponents.queryItems = [
-//            URLQueryItem(name: "client_id", value: Constants.accessKey),
-//            URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
-//            URLQueryItem(name: "response_type", value: "code"),
-//            URLQueryItem(name: "scope", value: Constants.accessScope)
-//        ]
-//
-//        guard let url = urlComponents.url else {
-//            print("Error set url")
-//            return
-//        }
-//
-//        let request = URLRequest(url: url)
-//        webView.load(request)
-//    }
 
     static func clean() {
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
@@ -132,22 +98,6 @@ extension WebViewViewController: WKNavigationDelegate {
             decisionHandler(.allow)
         }
     }
-
-//    private func code(from navigationAction: WKNavigationAction) -> String? {
-//        if
-//            let url = navigationAction.request.url,
-//            let urlComponents = URLComponents(string: url.absoluteString),
-//            urlComponents.path == "/oauth/authorize/native",
-//            let items = urlComponents.queryItems,
-//            let codeItem = items.first(where: { $0.name == "code" })
-//        {
-//            print("Successfully got code: \(codeItem.value)")
-//            return codeItem.value
-//        } else {
-//            print("No code in response")
-//            return nil
-//        }
-//    }
 
     private func code(from navigationAction: WKNavigationAction) -> String? {
         if let url = navigationAction.request.url {
