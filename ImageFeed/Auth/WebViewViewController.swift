@@ -8,18 +8,25 @@
 import UIKit
 import WebKit
 
+public protocol WebViewViewControllerProtocol: AnyObject {
+    var presenter: WebViewPresenterProtocol? { get set }
+    func load(request: URLRequest)
+}
+
 protocol WebViewViewControllerDelegate: AnyObject {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String)
     func webViewViewControllerDidCancel(_ vc: WebViewViewController)
 }
 
-final class WebViewViewController: UIViewController {
+final class WebViewViewController: UIViewController & WebViewViewControllerProtocol {
     @IBOutlet private var webView: WKWebView!
     @IBOutlet private weak var progressView: UIProgressView!
 
-    private enum WebViewConstants {
-        static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
-    }
+    var presenter: WebViewPresenterProtocol?
+
+//    private enum WebViewConstants {
+//        static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
+//    }
 
     weak var delegate: WebViewViewControllerDelegate?
 
@@ -27,8 +34,10 @@ final class WebViewViewController: UIViewController {
         super.viewDidLoad()
 
         webView.navigationDelegate = self
+        presenter?.viewDidLoad()
+        updateProgress()
 
-        loadAuthView()
+//        loadAuthView()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -40,6 +49,10 @@ final class WebViewViewController: UIViewController {
             options: .new,
             context: nil)
     }
+
+    func load(request: URLRequest) {
+        webView.load(request)
+    } 
 
     override func observeValue(
         forKeyPath keyPath: String?,
@@ -64,27 +77,27 @@ final class WebViewViewController: UIViewController {
         webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), context: nil)
     }
 
-    private func loadAuthView() {
-        guard var urlComponents = URLComponents(string: WebViewConstants.unsplashAuthorizeURLString) else {
-            print("Set urlComponents error")
-            return
-        }
-
-        urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: Constants.accessKey),
-            URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
-            URLQueryItem(name: "response_type", value: "code"),
-            URLQueryItem(name: "scope", value: Constants.accessScope)
-        ]
-
-        guard let url = urlComponents.url else {
-            print("Error set url")
-            return
-        }
-
-        let request = URLRequest(url: url)
-        webView.load(request)
-    }
+//    private func loadAuthView() {
+//        guard var urlComponents = URLComponents(string: WebViewConstants.unsplashAuthorizeURLString) else {
+//            print("Set urlComponents error")
+//            return
+//        }
+//
+//        urlComponents.queryItems = [
+//            URLQueryItem(name: "client_id", value: Constants.accessKey),
+//            URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
+//            URLQueryItem(name: "response_type", value: "code"),
+//            URLQueryItem(name: "scope", value: Constants.accessScope)
+//        ]
+//
+//        guard let url = urlComponents.url else {
+//            print("Error set url")
+//            return
+//        }
+//
+//        let request = URLRequest(url: url)
+//        webView.load(request)
+//    }
 
     static func clean() {
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
