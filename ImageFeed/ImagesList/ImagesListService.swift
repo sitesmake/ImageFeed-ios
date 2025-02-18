@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ImagesListService {
+final class ImagesListService: ImagesListServiceProtocol {
     private (set) var photos: [Photo] = []
     private var lastLoadedPage: Int?
     private var currentTask: URLSessionTask?
