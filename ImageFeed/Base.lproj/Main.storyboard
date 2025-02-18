@@ -228,6 +228,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zzO-q8-k1A">
                                 <rect key="frame" x="16" y="680" width="361" height="48"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Authenticate"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="wdQ-4n-0Tx"/>
                                 </constraints>
@@ -279,7 +280,7 @@
         <!--Web View View Controller-->
         <scene sceneID="Pa2-gX-ppN">
             <objects>
-                <viewController storyboardIdentifier="WebViewViewController" id="LTt-Dg-fFz" customClass="WebViewViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="LTt-Dg-fFz" customClass="WebViewViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DxN-9q-q9F">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -307,6 +308,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="PGd-Wo-zXO"/>
                         <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <accessibility key="accessibilityConfiguration" identifier="UnsplashWebView"/>
                         <constraints>
                             <constraint firstItem="PGd-Wo-zXO" firstAttribute="trailing" secondItem="qeS-8V-vz5" secondAttribute="trailing" id="4vD-Oq-H82"/>
                             <constraint firstItem="B0g-T8-0aO" firstAttribute="leading" secondItem="DxN-9q-q9F" secondAttribute="leading" id="9nA-Ex-TVB"/>

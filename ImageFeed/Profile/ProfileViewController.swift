@@ -55,6 +55,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
         view.addSubview(button)
         button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
         button.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
+        button.accessibilityIdentifier = "logout button"
 
         guard let token = OAuth2Storage.shared.token else {
             print("There is no token")
