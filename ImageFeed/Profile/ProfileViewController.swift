@@ -8,7 +8,13 @@
 import UIKit
 import Kingfisher
 
-final class ProfileViewController: UIViewController {
+public protocol ProfileViewControllerProtocol: AnyObject {
+    var presenter: ProfileViewPresenterProtocol? { get set }
+    func setupProfileDetails(name: String, login: String, bio: String)
+    func setupAvatar(url: URL)
+}
+
+final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     private var usernameLabel, profileLabel, textLabel: UILabel?
     private var imageView: UIImageView?
     private var profileImageServiceObserver: NSObjectProtocol?
@@ -56,43 +62,32 @@ final class ProfileViewController: UIViewController {
         }
         print(token)
 
-        updateProfileDetails()
-
-        profileImageServiceObserver = NotificationCenter.default
-            .addObserver(
-                forName: ProfileImageService.didChangeNotification,
-                object: nil,
-                queue: .main
-            ) { [weak self] _ in
-                guard let self = self else { return }
-                self.updateAvatar()
-            }
-
-        updateAvatar()
+        presenter?.view = self
+        presenter?.updateProfileDetails()
+        presenter?.observerProfileImageService()
     }
 
-    private func updateAvatar() {
-        guard
-            let profileImageURL = ProfileImageService.shared.avatarURL,
-            let url = URL(string: profileImageURL),
-            let imageView = self.imageView
-        else { return }
+    var presenter: ProfileViewPresenterProtocol? = {
+        return ProfileViewPresenter()
+    }()
 
+    func setupProfileDetails(name: String, login: String, bio: String) {
+        usernameLabel?.text = name
+        profileLabel?.text = login
+        textLabel?.text = bio
+    }
+
+    func setupAvatar(url: URL) {
         let cache = ImageCache.default
         cache.clearDiskCache()
         let processor = RoundCornerImageProcessor(cornerRadius: 42)
 
-        imageView.kf.setImage(with: url,
-                                 placeholder: UIImage(named: "placeholder"),
-                                 options: [.processor(processor), .transition(.fade(1))])
+        imageView?.kf.setImage(with: url,
+                              placeholder: UIImage(named: "placeholder"),
+                              options: [.processor(processor), .transition(.fade(1))])
     }
 
-    private func updateProfileDetails() {
-        guard let profile = ProfileService.shared.profile else { return }
-        usernameLabel?.text = profile.name
-        profileLabel?.text = profile.loginName
-        textLabel?.text = profile.bio
-    }
+    
 
     private func setupImageView(_ imageView: UIImageView) {
         imageView.tintColor = .gray

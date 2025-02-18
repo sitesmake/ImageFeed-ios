@@ -11,7 +11,12 @@ enum ProfileServiceError: Error {
     case invalidRequest
 }
 
-final class ProfileService {
+protocol ProfileServiceProtocol {
+    var profile: Profile? { get }
+    func fetchProfile(_ token: String, completion: @escaping (Result<ProfileResult, Error>) -> Void)
+}
+
+final class ProfileService: ProfileServiceProtocol {
     static let shared = ProfileService()
     private init() {}
 

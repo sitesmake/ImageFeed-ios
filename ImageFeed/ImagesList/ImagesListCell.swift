@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-final class ImagesListCell: UITableViewCell {
+public final class ImagesListCell: UITableViewCell {
     static let reuseIdentifier = "ImagesListCell"
     weak var delegate: ImagesListDelegate?
 
@@ -28,7 +28,7 @@ final class ImagesListCell: UITableViewCell {
         return formatter
     }()
 
-    override func prepareForReuse() {
+    public override func prepareForReuse() {
         cellImage.kf.cancelDownloadTask()
     }
 
